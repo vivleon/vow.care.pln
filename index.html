@@ -3,336 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vow Ecosystem Dashboard</title>
+    <title>Vow (바우) 에코시스템 포트폴리오</title>
     <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        
         :root {
-            --primary: #2563eb;
-            --primary-light: #dbeafe;
-            --secondary: #1e40af;
-            --accent: #10b981;
-            --bg-color: #f1f5f9;
-            --sidebar-bg: #1e293b;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --primary-color: #2E5BFF;
+            --secondary-color: #F4F6F8;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #E2E8F0;
+            --success-color: #10B981;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
             color: var(--text-main);
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 20px;
             display: flex;
-            min-height: 100vh;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
         }
 
-        /* Sidebar Layout */
-        .sidebar {
-            width: 250px;
-            background-color: var(--sidebar-bg);
-            color: white;
-            padding: 30px 20px;
+        .document-container {
+            max-width: 800px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            flex: 1 1 600px;
+        }
+
+        h1 { color: var(--primary-color); font-size: 1.8rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
+        h2 { color: #1a202c; font-size: 1.4rem; margin-top: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        h3 { color: #2d3748; font-size: 1.2rem; margin-top: 25px; }
+        p, li { color: var(--text-muted); font-size: 0.95rem; }
+        ul { padding-left: 20px; }
+        
+        .highlight-box {
+            background-color: #ebf4ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        code.formula {
+            display: block;
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            margin: 10px 0;
+            color: #d926a9;
+        }
+
+        /* Mockup Styles */
+        .mockup-container {
+            width: 320px;
+            height: 650px;
+            background: #ffffff;
+            border: 12px solid #1a202c;
+            border-radius: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            position: fixed;
-            height: 100vh;
+            position: sticky;
+            top: 20px;
+            flex-shrink: 0;
         }
 
-        .sidebar h2 {
-            font-size: 1.5rem;
+        .mockup-header {
+            background: var(--primary-color);
             color: white;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-        }
-        .sidebar h2 span { color: var(--primary); }
-
-        .nav-item {
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .nav-item:hover, .nav-item.active {
-            background-color: rgba(255,255,255,0.1);
-            color: white;
+            padding: 40px 20px 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
         }
 
-        /* Main Content */
-        .main-content {
+        .mockup-header h4 { margin: 0; font-size: 1.2rem; }
+        .mockup-header p { margin: 5px 0 0; font-size: 0.8rem; color: #e0e7ff; }
+
+        .mockup-content {
+            padding: 20px;
+            overflow-y: auto;
             flex: 1;
-            padding: 40px;
-            margin-left: 250px; /* 사이드바 너비만큼 띄움 */
+            background: #f8fafc;
         }
 
-        .header {
+        .report-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #d1fae5;
+            color: #065f46;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .checklist-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-        }
-        .header h1 { font-size: 1.8rem; }
-        
-        /* Tab Views */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        .tab-content.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-main);
         }
 
-        /* Cards & Grids */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+        .checklist-item::before {
+            content: '✓';
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            margin-right: 10px;
+            font-size: 0.7rem;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border-color);
+        .partner-note {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            font-style: italic;
         }
 
-        .stat-card h3 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
-        .stat-card .value { font-size: 1.8rem; font-weight: 700; color: var(--text-main); }
-        .stat-card .trend { font-size: 0.85rem; color: var(--accent); margin-top: 5px; display: inline-block; }
-
-        /* Tables */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.95rem; }
-        th { background-color: #f8fafc; font-weight: 600; color: var(--text-muted); }
-        
-        .status { padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
-        .status.unlocked { background: #dcfce7; color: #166534; }
-        .status.waiting { background: #fef08a; color: #854d0e; }
-
-        .progress-bar { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; margin-top: 8px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--primary); border-radius: 4px; }
-
-        /* Mobile App Mockup */
-        .mobile-mockup {
-            width: 320px; height: 650px; background: #f8fafc; border-radius: 40px;
-            border: 12px solid #0f172a; position: relative; overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); margin: 0 auto;
+        .mockup-btn {
+            display: block;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
         }
-        .notch {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 120px; height: 25px; background: #0f172a;
-            border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;
-        }
-        .app-header { background: var(--primary); color: white; padding: 50px 20px 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
-        .app-content { padding: 20px; }
-        .report-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .check-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 8px; color: #334155; }
-        .check-box { width: 18px; height: 18px; background: var(--primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; }
 
-        /* Project OS Milestone Box */
-        .milestone-box { border-left: 3px solid var(--primary); padding-left: 15px; margin-bottom: 20px; }
-        .milestone-box h4 { margin-bottom: 5px; color: var(--secondary); }
+        .mockup-btn.outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>Vow <span>OS</span></h2>
-        <a class="nav-item active" data-target="tab-overview">📊 Overview</a>
-        <a class="nav-item" data-target="tab-b2c">📱 Vow Care (B2C)</a>
-        <a class="nav-item" data-target="tab-waitlist">⚙️ Waitlist Config</a>
-        <a class="nav-item" data-target="tab-projectos">🧾 Project OS (B2B)</a>
+    <div class="document-container">
+        <h1>Vow (바우) 에코시스템: Vow Care 고도화 및 신규 19개 수익형 아이디어 포트폴리오</h1>
+
+        <h2>경영진 요약</h2>
+        <p><strong>Vow Care (바우 케어)</strong>는 “교육 서비스”가 아니라 <strong>자녀 결제(선물) 기반의 ‘라스트마일 효도 운영(Ops) 구독’</strong>으로 재정의할 때 결제 저항이 낮고, 바이럴(절제형 효도 신호)과 단위경제(수요·공급 밀집) 모두를 동시에 최적화할 수 있습니다. 한국은 2024년 1인가구가 전체의 36.1%(804만5천 가구)로 확대됐고, 1인가구의 42.7%가 서울·경기에 거주하는 것으로 제시돼 “분리거주·방문 공백”이 구조화되고 있습니다. 2024년 고독사 사망자 3,924명(전년 대비 증가) 발표는 “예방형 안심 지출”의 사회적·시장의 정당성을 강화합니다.</p>
+        
+        <p>수익 모델은 <strong>구독권에 방문 횟수 포함 + 추가 횟수는 토큰(추가결제)</strong>가 가장 설득력 있습니다. 모바일쇼핑 비중 77.0%라는 결제 환경은 구독·추가결제·선물 결제 흐름을 안정적으로 만들기 유리합니다. 또한 가계신용이 높은 환경에서는 “지출의 정당화(안심·증빙·리포트)”가 구독 유지의 핵심이 됩니다.</p>
+
+        <p>사용자 후속 제약을 충족하기 위해 <strong>유료 대기열(결제대기) 기반 지역 Unlock 확장</strong>을 “과열 경쟁 없이” 설계했습니다. 핵심은 다음과 같습니다.</p>
+        <ul>
+            <li><strong>예치금+재확인 게이트+단계 환불 감가:</strong> 대량가입 후 취소 억제</li>
+            <li><strong>유료대기 가치:</strong> 가격 할인 대신 가격 락·우선 예약창·프리미엄 리포트/배지로 제공</li>
+            <li><strong>코호트 혜택:</strong> “영구 할인”이 아닌 상징+기간 제한+성과형 해금으로 후발 코호트 박탈감 차단</li>
+            <li><strong>동적 조정:</strong> 예치금/오픈 임계치(Dmin) 조정으로 서버·운영 부하 제어</li>
+            <li><strong>초기 멤버 혜택:</strong> 현금 대신 원가 통제 가능한 크레딧/우선권으로 마진 방어(ROI 가드레일 포함)</li>
+        </ul>
+
+        <h2>시장 근거와 가정</h2>
+        <p>기술 스택, 예산 상한, 사용자 스킬/가용시간은 미지정(Unknown)이므로 단가·CAC·전환율·원가 가정은 시나리오 변수로 처리합니다. 본 보고서는 한국의 통계 지표(1인가구 구조, 고독사/고립, 인터넷 이용·구독경제 전환 등)를 우선 채택합니다.</p>
+        <p>결제 심리(자녀가 기꺼이 결제하는 이유)는 손실회피, 정신회계(교육비보다 월 안심비), IKEA 효과(부모 자립 서사), 친사회적 소비, 절제형 시그널링 등 5가지 레버리지로 표준화합니다.</p>
+
+        <h2>Vow Care (바우 케어) 제품 사양</h2>
+        
+        <h3>이름과 포지셔닝</h3>
+        <ul>
+            <li><strong>간결한 이름:</strong> <strong>Vow Care (바우 케어)</strong></li>
+            <li><strong>한 문장 바이럴 피치:</strong> “부모님 집 근처 동행파트너가 ‘안부+선물+디지털 도움’을 대신 실행하고, 자녀는 1페이지 ‘안심 리포트’로 효도를 조용히 증명하며, 부모는 ‘자립 배지’로 당당히 보여줍니다.”</li>
+            <li><strong>카테고리 정의:</strong> “요양/간병”도 “강의형 교육”도 아닌 <strong>라스트마일 효도 운영 OS</strong></li>
+        </ul>
+
+        <h3>고객·사용자·시장 세그먼트</h3>
+        <ul>
+            <li><strong>결제자(자녀):</strong> 수도권 고소득권역의 30~55세 맞벌이/전문직, 부모와 분리거주.</li>
+            <li><strong>사용자(부모):</strong> 60~80대(특히 독거·고립 위험군).</li>
+            <li><strong>해외 한인 프리미엄(2단계):</strong> 해외 거주 자녀가 한국 내 부모를 원격 지원.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <strong>블루오션 각:</strong> Vow Care (바우 케어)가 선점하는 것은 “방문”이 아니라 <strong>신뢰 데이터(증빙·품질·정산)</strong>입니다.
+        </div>
+
+        <h3>AI 에이전트(필수)와 솔로 빌드 태스크</h3>
+        <ul>
+            <li><strong>AI 에이전트:</strong> 배차 보조, 체크리스트 자동 생성, 방문 리포트 1장 자동 요약, 금지업무 가드레일, 공유 카드 생성</li>
+            <li><strong>솔로 빌드:</strong> 구독/토큰 결제 및 환불, 유료 대기열 및 지역 Unlock 로직, 파트너 앱, 거리·시간 기반 정산 엔진, CS/클레임 정책</li>
+        </ul>
+
+        <h3>유닛 이코노믹스(샘플) 및 1년 P&L 시나리오</h3>
+        <p>가정 변수: ARPU ₩320,000/월, CAC ₩90,000, 월 방문수(v) 2.3회, 방문원가 ₩42,000/회, 수수료 6%</p>
+        <code class="formula">
+            월 기여이익(CM) = ARPU − (v &times; cost_visit) − (ARPU &times; fee_rate)<br>
+            페이백(월) = CAC / CM
+        </code>
+        <p>국내 90가구 + 해외 25가구 가정 시 연 매출 약 ₩540M, 순이익 약 ₩135M(US$100K 경로) 달성 가능.</p>
+
+        <h2>지역 Unlock 운영 알고리즘과 재무 훼손 방지</h2>
+        
+        <h3>유료 대기열(결제대기) 설계</h3>
+        <p>오픈 조건(2중 게이트):</p>
+        <ul>
+            <li><strong>수요 게이트:</strong> P_r &ge; Dmin_r</li>
+            <li><strong>공급 게이트:</strong> QualifiedPartners_r &ge; Smin_r AND PeakCoverage_r &ge; 70%</li>
+        </ul>
+
+        <h3>예치금 프리미엄화 + 동적 임계치(제약 4)</h3>
+        <p>동적 임계치(Dmin) 및 부하 보정 수식:</p>
+        <code class="formula">
+            Dmin_r = &lceil;(Capacity_r &times; util_target) / v&rceil;<br>
+            Dmin_r' = &lceil;Dmin_r &times; (1 + &alpha; &middot; max(0, LoadIndex &minus; L0))&rceil;
+        </code>
+        <p>예치금 동적 조절 (수요 과열 시 허수 억제):</p>
+        <code class="formula">
+            d_r = d0 &times; (1 + &beta; &middot; max(0, P_r / Dmin_r &minus; 1))
+        </code>
+
+        <h3>시뮬레이션 준비 수식(매출·현금흐름)</h3>
+        <code class="formula">
+            Active = P &times; (1 &minus; C) &times; A<br>
+            Revenue = (Active &times; S) + (Active &times; token_freq &times; token_price)<br>
+            VarCost = (Active &times; v &times; cost_visit) + (Revenue &times; fee_rate)<br>
+            Contribution = Revenue &minus; VarCost
+        </code>
+        
+        <p><em>(Vow Care와 신규 포트폴리오는 동일한 메커니즘—예치금 기반 커밋, 증빙 리포트, 절제형 공유—로 상호 레버리지하도록 설계했습니다.)</em></p>
     </div>
 
-    <div class="main-content">
-        <div class="header">
-            <div>
-                <h1>Vow Ecosystem</h1>
-                <p style="color: var(--text-muted); margin-top: 5px;">라스트마일 효도 운영 및 B2B 인프라 포트폴리오</p>
-            </div>
+    <div class="mockup-container">
+        <div class="mockup-header">
+            <h4>Vow Care (바우 케어)</h4>
+            <p>이번 주 안심 리포트 📄</p>
         </div>
-
-        <div id="tab-overview" class="tab-content active">
-            <h2 style="margin-bottom: 20px;">시스템 요약</h2>
-            <div class="dashboard-grid">
-                <div class="card stat-card">
-                    <h3>총 예치금 (Waitlist 락업)</h3>
-                    <div class="value">₩15,200,000</div>
-                    <div class="trend">송도 권역 1차 코호트 확정</div>
-                </div>
-                <div class="card stat-card">
-                    <h3>Vow Care 월간 활성 구독(Active)</h3>
-                    <div class="value">428 가구</div>
-                    <div class="trend">↑ 유지율 94% (리포트 증빙 효과)</div>
-                </div>
-                <div class="card stat-card">
-                    <h3>B2B 솔루션 파이프라인</h3>
-                    <div class="value">3 개 동작중</div>
-                    <div class="trend">Project OS 모니터링 활성화</div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>최근 시스템 알림</h3>
-                <ul style="margin-top: 15px; color: var(--text-muted); line-height: 1.8; list-style-position: inside;">
-                    <li>[2026-02-22] 송도 권역 유료 대기열 150명 목표치(Dmin) 달성. Unlock 프로세스 가동.</li>
-                    <li>[2026-02-22] 자동결제 리트라이 2회 실패 계정(3건) 보류(Hold) 처리 완료.</li>
-                    <li>[2026-02-21] '하자프로젝트 OS' API 모듈 업데이트 완료 (사진 1장 리포트 연동).</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="tab-b2c" class="tab-content">
-            <h2 style="margin-bottom: 20px;">Vow Care 모바일 리포트 뷰 (자녀용)</h2>
-            <p style="margin-bottom: 30px; color: var(--text-muted);">부모님의 자립을 돕고 자녀에게 확실한 증빙을 제공하는 '안심 리포트' 인터페이스입니다.</p>
-            
-            <div class="mobile-mockup">
-                <div class="notch"></div>
-                <div class="app-header">
-                    <h3>Vow Care 안심 리포트</h3>
-                    <p>2026년 2월 3주차 정기 방문</p>
-                </div>
-                <div class="app-content">
-                    <div class="report-card">
-                        <h4 style="margin-bottom: 10px; color: var(--secondary);">체크리스트 완료 (3/3)</h4>
-                        <div class="check-item"><div class="check-box">✓</div> 스마트폰 앱(당근/카톡) 사용법 안내</div>
-                        <div class="check-item"><div class="check-box">✓</div> 보일러 및 전열기구 안전 점검</div>
-                        <div class="check-item"><div class="check-box">✓</div> 정기 안부 및 말벗 (30분)</div>
-                    </div>
-
-                    <div class="report-card">
-                        <h4 style="margin-bottom: 10px; color: var(--secondary);">🌟 부모님 자립 배지</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">부모님이 스스로 모바일 결제 미션을 달성하셨습니다!</p>
-                        <div style="background: #f0fdf4; padding: 10px; border-radius: 8px; border: 1px solid #bbf7d0;">
-                            <div style="font-weight: bold; color: #166534;">디지털 마스터 1단계 획득</div>
-                        </div>
-                    </div>
-
-                    <button style="width: 100%; padding: 12px; background: white; border: 1px solid var(--border-color); border-radius: 8px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: 0.2s;">
-                        가족 단톡방에만 조용히 공유하기
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-waitlist" class="tab-content">
-            <h2 style="margin-bottom: 20px;">유료 대기열 및 지역 Unlock 제어</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">C/C# 기반 백엔드 결제 엔진과 연동되어 수요(예치금)와 공급(파트너)을 동적으로 매칭합니다.</p>
-            
-            <div class="card">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>타깃 권역</th>
-                            <th>유료 대기(P) / 목표(Dmin)</th>
-                            <th>파트너 커버리지</th>
-                            <th>상태</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>송도 (1차 프리미엄)</strong></td>
-                            <td>
-                                150 / 120 가구
-                                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
-                            </td>
-                            <td>85% (안정)</td>
-                            <td><span class="status unlocked">Unlock 확정</span></td>
-                        </tr>
-                        <tr>
-                            <td>분당/판교</td>
-                            <td>
-                                85 / 100 가구
-                                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-                            </td>
-                            <td>70% (모집 중)</td>
-                            <td><span class="status waiting">결제 대기중</span></td>
-                        </tr>
-                        <tr>
-                            <td>해외 한인 (LA/NY)</td>
-                            <td>
-                                45 / 50 가구
-                                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-                            </td>
-                            <td>원격 지원</td>
-                            <td><span class="status waiting">오픈 임박</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #334155;">
-                    > Dmin_r = ceil((Capacity_r × 0.7) / 2.3)<br>
-                    > 송도 권역 Capacity 달성. 재확인(D-7) 루틴 실행 완료.
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-projectos" class="tab-content">
-            <h2 style="margin-bottom: 20px;">하자프로젝트 OS (B2B/SaaS)</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">인테리어/수리 시 연락두절 및 불완전이행을 방지하는 마일스톤 운영 템플릿입니다.</p>
-            
-            <div class="card" style="max-width: 600px;">
-                <h3 style="margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">송도 푸르지오 인테리어 프로젝트</h3>
+        <div class="mockup-content">
+            <div class="report-card">
+                <span class="badge">부모님 자립 뱃지 획득! 🏆</span>
+                <h3 style="margin-top:0; font-size:1.1rem;">김어르신 님의 3월 2주차</h3>
+                <p style="font-size: 0.8rem; margin-bottom: 15px;">담당 파트너: 이지은 (평점 4.9)</p>
                 
-                <div class="milestone-box">
-                    <h4>1단계: 착수 및 철거 (완료)</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">증빙 사진 4장 업로드 완료 / 1차 대금 결제 승인</p>
+                <div style="background:#e2e8f0; height:120px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
+                    <span style="color:#64748b; font-size:0.8rem;">📸 방문 인증 사진 영역</span>
                 </div>
-                
-                <div class="milestone-box" style="border-left-color: var(--accent);">
-                    <h4>2단계: 목공 및 전기 (진행중)</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">체크리스트: 콘센트 위치 이동, 간접등 배선</p>
-                    <button style="padding: 8px 15px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer;">
-                        증빙 자료 검토 후 결제 승인
-                    </button>
-                </div>
-                
-                <div class="milestone-box" style="border-left-color: #cbd5e1;">
-                    <h4 style="color: #64748b;">3단계: 마감 및 하자 보수 (대기)</h4>
-                    <p style="font-size: 0.9rem; color: #94a3b8;">사전 점검표 생성 대기 중</p>
+
+                <div class="checklist-item">스마트폰 뱅킹 앱 설치 및 송금 교육</div>
+                <div class="checklist-item">겨울 이불 정리 및 환기 보조</div>
+                <div class="checklist-item">건강 안부 확인 및 10분 말벗</div>
+
+                <div class="partner-note">
+                    "어르신께서 오늘 모바일 뱅킹으로 손주에게 직접 용돈을 보내시고 무척 뿌듯해하셨습니다. 식사도 잘 챙겨 드시고 계십니다."
                 </div>
             </div>
-        </div>
 
+            <button class="mockup-btn">가족에게 안심 리포트 공유하기</button>
+            <button class="mockup-btn outline">파트너에게 감사 토큰/팁 보내기</button>
+        </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const navItems = document.querySelectorAll('.nav-item');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    // 1. 모든 메뉴에서 active 클래스 제거
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    // 2. 클릭한 메뉴에 active 클래스 추가
-                    item.classList.add('active');
-
-                    // 3. 모든 탭 컨텐츠 숨기기
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // 4. 클릭한 메뉴의 data-target과 일치하는 ID를 가진 컨텐츠 보여주기
-                    const targetId = item.getAttribute('data-target');
-                    const targetContent = document.getElementById(targetId);
-                    if (targetContent) {
-                        targetContent.classList.add('active');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
