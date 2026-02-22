@@ -12,6 +12,7 @@
             --text-muted: #666666;
             --border-color: #E2E8F0;
             --success-color: #10B981;
+            --accent-color: #8B5CF6;
         }
 
         body {
@@ -53,11 +54,56 @@
         code.formula {
             display: block;
             background: #f1f5f9;
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
             font-family: monospace;
             margin: 10px 0;
-            color: #d926a9;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* Simulation Table Styles */
+        .simulation-wrapper {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        
+        .simulation-header {
+            background: #f8fafc;
+            padding: 12px 15px;
+            font-weight: bold;
+            color: #1e293b;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .simulation-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .simulation-row:last-child {
+            border-bottom: none;
+        }
+
+        .simulation-row.total {
+            background: #eff6ff;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .sim-val {
+            font-family: monospace;
+            font-size: 0.95rem;
         }
 
         /* Mockup Styles */
@@ -172,7 +218,7 @@
 <body>
 
     <div class="document-container">
-        <h1>Vow (바우) 에코시스템: Vow Care 고도화 및 신규 19개 수익형 아이디어 포트폴리오</h1>
+        <h1>Vow (바우) 에코시스템: Vow Care 비즈니스 모델 고도화</h1>
 
         <h2>경영진 요약</h2>
         <p><strong>Vow Care (바우 케어)</strong>는 “교육 서비스”가 아니라 <strong>자녀 결제(선물) 기반의 ‘라스트마일 효도 운영(Ops) 구독’</strong>으로 재정의할 때 결제 저항이 낮고, 바이럴(절제형 효도 신호)과 단위경제(수요·공급 밀집) 모두를 동시에 최적화할 수 있습니다. 한국은 2024년 1인가구가 전체의 36.1%(804만5천 가구)로 확대됐고, 1인가구의 42.7%가 서울·경기에 거주하는 것으로 제시돼 “분리거주·방문 공백”이 구조화되고 있습니다. 2024년 고독사 사망자 3,924명(전년 대비 증가) 발표는 “예방형 안심 지출”의 사회적·시장의 정당성을 강화합니다.</p>
@@ -188,73 +234,109 @@
             <li><strong>초기 멤버 혜택:</strong> 현금 대신 원가 통제 가능한 크레딧/우선권으로 마진 방어(ROI 가드레일 포함)</li>
         </ul>
 
-        <h2>시장 근거와 가정</h2>
-        <p>기술 스택, 예산 상한, 사용자 스킬/가용시간은 미지정(Unknown)이므로 단가·CAC·전환율·원가 가정은 시나리오 변수로 처리합니다. 본 보고서는 한국의 통계 지표(1인가구 구조, 고독사/고립, 인터넷 이용·구독경제 전환 등)를 우선 채택합니다.</p>
-        <p>결제 심리(자녀가 기꺼이 결제하는 이유)는 손실회피, 정신회계(교육비보다 월 안심비), IKEA 효과(부모 자립 서사), 친사회적 소비, 절제형 시그널링 등 5가지 레버리지로 표준화합니다.</p>
+        <h2>시장 근거와 결제 심리 가정</h2>
+        <p>본 보고서는 한국의 통계 지표(1인가구 구조, 고독사/고립, 인터넷 이용·구독경제 전환 등)를 우선 채택합니다. 결제 심리(자녀가 기꺼이 결제하는 이유)는 손실회피, 정신회계(교육비보다 월 안심비), IKEA 효과(부모 자립 서사), 친사회적 소비, 절제형 시그널링 등 5가지 레버리지로 표준화합니다.</p>
 
         <h2>Vow Care (바우 케어) 제품 사양</h2>
         
         <h3>이름과 포지셔닝</h3>
         <ul>
-            <li><strong>간결한 이름:</strong> <strong>Vow Care (바우 케어)</strong></li>
+            <li><strong>마스터 브랜드:</strong> <strong>Vow (바우)</strong> - 부모님을 향한 다짐과 약속</li>
+            <li><strong>메인 프로젝트:</strong> <strong>Vow Care (바우 케어)</strong></li>
             <li><strong>한 문장 바이럴 피치:</strong> “부모님 집 근처 동행파트너가 ‘안부+선물+디지털 도움’을 대신 실행하고, 자녀는 1페이지 ‘안심 리포트’로 효도를 조용히 증명하며, 부모는 ‘자립 배지’로 당당히 보여줍니다.”</li>
             <li><strong>카테고리 정의:</strong> “요양/간병”도 “강의형 교육”도 아닌 <strong>라스트마일 효도 운영 OS</strong></li>
         </ul>
 
-        <h3>고객·사용자·시장 세그먼트</h3>
-        <ul>
-            <li><strong>결제자(자녀):</strong> 수도권 고소득권역의 30~55세 맞벌이/전문직, 부모와 분리거주.</li>
-            <li><strong>사용자(부모):</strong> 60~80대(특히 독거·고립 위험군).</li>
-            <li><strong>해외 한인 프리미엄(2단계):</strong> 해외 거주 자녀가 한국 내 부모를 원격 지원.</li>
-        </ul>
-
         <div class="highlight-box">
-            <strong>블루오션 각:</strong> Vow Care (바우 케어)가 선점하는 것은 “방문”이 아니라 <strong>신뢰 데이터(증빙·품질·정산)</strong>입니다.
+            <strong>블루오션 각:</strong> Vow Care가 선점하는 것은 단순한 “방문”이 아니라 <strong>신뢰 데이터(증빙·품질·정산)</strong>입니다.
         </div>
 
-        <h3>AI 에이전트(필수)와 솔로 빌드 태스크</h3>
-        <ul>
-            <li><strong>AI 에이전트:</strong> 배차 보조, 체크리스트 자동 생성, 방문 리포트 1장 자동 요약, 금지업무 가드레일, 공유 카드 생성</li>
-            <li><strong>솔로 빌드:</strong> 구독/토큰 결제 및 환불, 유료 대기열 및 지역 Unlock 로직, 파트너 앱, 거리·시간 기반 정산 엔진, CS/클레임 정책</li>
-        </ul>
+        <h2>단위 경제(Unit Economics) 및 수익 시뮬레이션</h2>
+        <p>서비스 런칭 전, 유닛 이코노믹스의 건전성과 지역 Unlock 오픈 시의 예상 현금흐름을 검증하기 위해 가상의 수치를 바탕으로 시뮬레이션을 진행했습니다.</p>
 
-        <h3>유닛 이코노믹스(샘플) 및 1년 P&L 시나리오</h3>
-        <p>가정 변수: ARPU ₩320,000/월, CAC ₩90,000, 월 방문수(v) 2.3회, 방문원가 ₩42,000/회, 수수료 6%</p>
+        <h3>1. 고객 1인당 단위 경제 (Unit Economics)</h3>
+        <p><strong>가정 변수:</strong> 기본 월 구독료(S) ₩320,000 / 월 평균 추가 토큰 구매 0.5회(₩25,000) / 월 평균 방문수(v) 2.3회 / 1회 방문 파트너 정산원가 ₩42,000 / 결제 및 운영 수수료 6% / 고객획득비용(CAC) ₩90,000</p>
+        
         <code class="formula">
-            월 기여이익(CM) = ARPU − (v &times; cost_visit) − (ARPU &times; fee_rate)<br>
+            ARPU = 구독료 + (추가 토큰 빈도 &times; 토큰 단가)<br>
+            월 변동원가 = (월 방문수 &times; 방문원가) + (ARPU &times; 수수료율)<br>
+            월 기여이익(CM) = ARPU &minus; 월 변동원가<br>
             페이백(월) = CAC / CM
         </code>
-        <p>국내 90가구 + 해외 25가구 가정 시 연 매출 약 ₩540M, 순이익 약 ₩135M(US$100K 경로) 달성 가능.</p>
 
-        <h2>지역 Unlock 운영 알고리즘과 재무 훼손 방지</h2>
-        
-        <h3>유료 대기열(결제대기) 설계</h3>
-        <p>오픈 조건(2중 게이트):</p>
-        <ul>
-            <li><strong>수요 게이트:</strong> P_r &ge; Dmin_r</li>
-            <li><strong>공급 게이트:</strong> QualifiedPartners_r &ge; Smin_r AND PeakCoverage_r &ge; 70%</li>
-        </ul>
+        <div class="simulation-wrapper">
+            <div class="simulation-header">
+                <span>지표 (Per User / Month)</span>
+                <span>금액 (KRW)</span>
+            </div>
+            <div class="simulation-row">
+                <span>월 평균 고객 매출 (ARPU)</span>
+                <span class="sim-val">₩345,000</span>
+            </div>
+            <div class="simulation-row">
+                <span>월 방문 정산 원가 (2.3회 &times; ₩42,000)</span>
+                <span class="sim-val">&minus;₩96,600</span>
+            </div>
+            <div class="simulation-row">
+                <span>운영 및 결제 수수료 (ARPU의 6%)</span>
+                <span class="sim-val">&minus;₩20,700</span>
+            </div>
+            <div class="simulation-row total">
+                <span>월 기여이익 (Contribution Margin)</span>
+                <span class="sim-val">₩227,700</span>
+            </div>
+            <div class="simulation-row">
+                <span>고객 획득 비용 (CAC) 회수 기간</span>
+                <span class="sim-val">약 0.4개월 (건전)</span>
+            </div>
+        </div>
+        <p>→ <strong>인사이트:</strong> 구독료 내에 원가 마진이 충분히 녹아 있어, <strong>첫 달 결제만으로도 마케팅 비용(CAC) 회수가 가능</strong>한 매우 건전한 유닛 이코노믹스 구조입니다.</p>
 
-        <h3>예치금 프리미엄화 + 동적 임계치(제약 4)</h3>
-        <p>동적 임계치(Dmin) 및 부하 보정 수식:</p>
+        <h3>2. 런칭 첫 달 코호트 시뮬레이션 (특정 지역 Unlock 시)</h3>
+        <p><strong>가정 변수:</strong> 해당 지역 유료 대기자(P) 200명 / 서비스 오픈 전 취소율(C) 20% / 자동결제 성공률(A) 90%</p>
+
+        <code class="formula">
+            Active Users = P &times; (1 &minus; C) &times; A<br>
+            Monthly Revenue = Active &times; ARPU<br>
+            Monthly Contribution = Active &times; CM
+        </code>
+
+        <div class="simulation-wrapper">
+            <div class="simulation-header">
+                <span>오픈 1개월 차 지표 (1개 지역 코호트)</span>
+                <span>결과값</span>
+            </div>
+            <div class="simulation-row">
+                <span>최종 활성 결제 유저 (Active Users)</span>
+                <span class="sim-val">144 명</span>
+            </div>
+            <div class="simulation-row">
+                <span>월 발생 총 매출 (Monthly Revenue)</span>
+                <span class="sim-val">₩49,680,000</span>
+            </div>
+            <div class="simulation-row">
+                <span>월 총 변동원가 (Total VarCost)</span>
+                <span class="sim-val">&minus;₩16,891,200</span>
+            </div>
+            <div class="simulation-row total">
+                <span>월 코호트 기여이익 (총 마진)</span>
+                <span class="sim-val">₩32,788,800</span>
+            </div>
+            <div class="simulation-row">
+                <span>연 환산 기대 매출 (Annualized Run Rate)</span>
+                <span class="sim-val">약 ₩5억 9,600만</span>
+            </div>
+        </div>
+        <p>→ <strong>인사이트:</strong> 유료 대기열(예치금) 시스템이 허수를 걸러내어, 단 1개의 핵심 프리미엄 권역을 오픈(약 144가구 활성화)하는 것만으로도 연간 기준 약 6억 원의 안정적인 매출 기반을 확보할 수 있습니다.</p>
+
+        <h2>지역 Unlock 및 부하 제어 수식</h2>
+        <p>동적 임계치(Dmin) 및 부하 보정, 예치금(d_r) 조절을 통해 수요 과열 시 서버 및 운영(CS) 부하를 자동으로 제어합니다.</p>
         <code class="formula">
             Dmin_r = &lceil;(Capacity_r &times; util_target) / v&rceil;<br>
-            Dmin_r' = &lceil;Dmin_r &times; (1 + &alpha; &middot; max(0, LoadIndex &minus; L0))&rceil;
-        </code>
-        <p>예치금 동적 조절 (수요 과열 시 허수 억제):</p>
-        <code class="formula">
+            Dmin_r' = &lceil;Dmin_r &times; (1 + &alpha; &middot; max(0, LoadIndex &minus; L0))&rceil;<br>
             d_r = d0 &times; (1 + &beta; &middot; max(0, P_r / Dmin_r &minus; 1))
         </code>
 
-        <h3>시뮬레이션 준비 수식(매출·현금흐름)</h3>
-        <code class="formula">
-            Active = P &times; (1 &minus; C) &times; A<br>
-            Revenue = (Active &times; S) + (Active &times; token_freq &times; token_price)<br>
-            VarCost = (Active &times; v &times; cost_visit) + (Revenue &times; fee_rate)<br>
-            Contribution = Revenue &minus; VarCost
-        </code>
-        
-        <p><em>(Vow Care와 신규 포트폴리오는 동일한 메커니즘—예치금 기반 커밋, 증빙 리포트, 절제형 공유—로 상호 레버리지하도록 설계했습니다.)</em></p>
     </div>
 
     <div class="mockup-container">
