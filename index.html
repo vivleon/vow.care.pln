@@ -3,370 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vow (바우) 에코시스템 포트폴리오</title>
+    <title>Vow (바우) 에코시스템 - 비즈니스 포트폴리오</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true, theme: 'neutral'});</script>
+    
     <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
         :root {
-            --primary-color: #2E5BFF;
-            --secondary-color: #F4F6F8;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --border-color: #E2E8F0;
-            --success-color: #10B981;
-            --accent-color: #8B5CF6;
+            --primary: #4F46E5; /* Trustworthy Indigo */
+            --primary-light: #E0E7FF;
+            --secondary: #0F172A;
+            --surface: #FFFFFF;
+            --background: #F8FAFC;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --border: #E2E8F0;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Pretendard', -apple-system, sans-serif;
             line-height: 1.6;
             color: var(--text-main);
-            background-color: #f9fafb;
+            background-color: var(--background);
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 40px;
         }
 
-        .document-container {
-            max-width: 800px;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            flex: 1 1 600px;
+        .main-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            gap: 40px;
+            align-items: flex-start;
         }
 
-        h1 { color: var(--primary-color); font-size: 1.8rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
-        h2 { color: #1a202c; font-size: 1.4rem; margin-top: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
-        h3 { color: #2d3748; font-size: 1.2rem; margin-top: 25px; }
-        p, li { color: var(--text-muted); font-size: 0.95rem; }
+        /* Document Area */
+        .document-container {
+            flex: 1;
+            min-width: 0;
+            background: var(--surface);
+            padding: 50px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .badge-brand {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        h1 { color: var(--secondary); font-size: 2.2rem; margin: 10px 0; letter-spacing: -0.5px;}
+        h2 { color: var(--primary); font-size: 1.5rem; margin: 40px 0 15px; display: flex; align-items: center; gap: 8px;}
+        h2::before { content: ''; display: block; width: 4px; height: 20px; background: var(--primary); border-radius: 2px; }
+        h3 { color: var(--secondary); font-size: 1.2rem; margin: 30px 0 15px; }
+        p, li { color: var(--text-muted); font-size: 1.05rem; }
         ul { padding-left: 20px; }
         
         .highlight-box {
-            background-color: #ebf4ff;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
+            background: linear-gradient(to right, #EEF2FF, #FAFAF9);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .highlight-box strong { color: var(--primary); }
+
+        .diagram-container {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .diagram-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         code.formula {
             display: block;
-            background: #f1f5f9;
-            padding: 12px;
-            border-radius: 6px;
-            font-family: monospace;
-            margin: 10px 0;
-            color: var(--accent-color);
-            font-size: 0.9rem;
-        }
-
-        /* Simulation Table Styles */
-        .simulation-wrapper {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
+            background: var(--secondary);
+            color: #A5B4FC;
+            padding: 15px;
             border-radius: 8px;
-            overflow: hidden;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        
-        .simulation-header {
-            background: #f8fafc;
-            padding: 12px 15px;
-            font-weight: bold;
-            color: #1e293b;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .simulation-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 15px;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .simulation-row:last-child {
-            border-bottom: none;
-        }
-
-        .simulation-row.total {
-            background: #eff6ff;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .sim-val {
-            font-family: monospace;
+            font-family: 'D2Coding', monospace;
             font-size: 0.95rem;
+            margin: 15px 0;
+            overflow-x: auto;
         }
+
+        /* Unit Economics Table */
+        .ue-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        .ue-table th, .ue-table td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .ue-table th { background: #F1F5F9; font-weight: 600; color: var(--secondary); }
+        .ue-table tr:last-child td { border-bottom: none; }
+        .ue-table tr.total-row { background: var(--primary-light); font-weight: bold; color: var(--primary); }
+        .val { font-family: 'D2Coding', monospace; text-align: right; }
 
         /* Mockup Styles */
-        .mockup-container {
-            width: 320px;
-            height: 650px;
-            background: #ffffff;
-            border: 12px solid #1a202c;
-            border-radius: 40px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+        .mockup-wrapper {
             position: sticky;
-            top: 20px;
+            top: 40px;
+            width: 340px;
             flex-shrink: 0;
         }
 
-        .mockup-header {
-            background: var(--primary-color);
+        .phone-frame {
+            width: 100%;
+            height: 700px;
+            background: #ffffff;
+            border: 12px solid var(--secondary);
+            border-radius: 45px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: var(--secondary);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        .app-screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            background: #F8FAFC;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .app-screen.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* App Header */
+        .app-header {
+            background: var(--primary);
             color: white;
-            padding: 40px 20px 20px;
+            padding: 45px 20px 20px;
             text-align: center;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+        .app-header h4 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .app-header p { margin: 5px 0 0; font-size: 0.85rem; color: var(--primary-light); opacity: 0.9; }
 
-        .mockup-header h4 { margin: 0; font-size: 1.2rem; }
-        .mockup-header p { margin: 5px 0 0; font-size: 0.8rem; color: #e0e7ff; }
+        /* App Content Area */
+        .app-content { padding: 20px; overflow-y: auto; flex: 1; padding-bottom: 80px; }
 
-        .mockup-content {
-            padding: 20px;
-            overflow-y: auto;
-            flex: 1;
-            background: #f8fafc;
-        }
-
-        .report-card {
+        /* Card Styles */
+        .card {
             background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             margin-bottom: 15px;
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
-        .badge {
+        .tag {
             display: inline-block;
-            background: #d1fae5;
-            color: #065f46;
             font-size: 0.7rem;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 12px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .tag.wait { background: #FEF3C7; color: #D97706; }
+        .tag.success { background: #D1FAE5; color: #059669; }
+
+        /* Progress Bar */
+        .progress-container { width: 100%; background: #E2E8F0; border-radius: 10px; height: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--primary); width: 85%; border-radius: 10px; }
+
+        /* Checklist */
+        .check-item { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.9rem; color: var(--text-main); }
+        .check-item::before {
+            content: '✓'; display: inline-flex; align-items: center; justify-content: center;
+            width: 20px; height: 20px; background: var(--success); color: white; border-radius: 50%;
+            margin-right: 12px; font-size: 0.75rem; font-weight: bold;
         }
 
-        .checklist-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            color: var(--text-main);
+        /* Buttons */
+        .btn {
+            display: block; width: 100%; padding: 14px; border-radius: 12px;
+            text-align: center; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
+            margin-top: 10px; transition: all 0.2s;
+        }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+
+        /* Parent Badge UI */
+        .badge-circle {
+            width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A, #F59E0B);
+            margin: 20px auto; display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3); border: 4px solid white;
         }
 
-        .checklist-item::before {
-            content: '✓';
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background: var(--success-color);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 18px;
-            margin-right: 10px;
-            font-size: 0.7rem;
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 70px;
+            background: white; border-top: 1px solid var(--border); display: flex; justify-content: space-around;
+            align-items: center; padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
         }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); cursor: pointer; width: 33%; font-size: 0.75rem; font-weight: 600; gap: 4px; }
+        .nav-item.active { color: var(--primary); }
+        .nav-icon { font-size: 1.4rem; }
 
-        .partner-note {
-            background: #f1f5f9;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 15px;
-            font-style: italic;
-        }
-
-        .mockup-btn {
-            display: block;
-            width: 100%;
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .mockup-btn.outline {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
+        @media (max-width: 1024px) {
+            .main-container { flex-direction: column; align-items: center; }
+            .mockup-wrapper { position: relative; top: 0; margin-top: 40px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="document-container">
-        <h1>Vow (바우) 에코시스템: Vow Care 비즈니스 모델 고도화</h1>
+    <div class="main-container">
+        <div class="document-container">
+            <div class="hero-header">
+                <span class="badge-brand">Hackathon Master Pitch</span>
+                <h1>Vow (바우) 에코시스템</h1>
+                <p>라스트마일 효도 운영(Ops) 구독 플랫폼 'Vow Care' 비즈니스 모델</p>
+            </div>
 
-        <h2>경영진 요약</h2>
-        <p><strong>Vow Care (바우 케어)</strong>는 “교육 서비스”가 아니라 <strong>자녀 결제(선물) 기반의 ‘라스트마일 효도 운영(Ops) 구독’</strong>으로 재정의할 때 결제 저항이 낮고, 바이럴(절제형 효도 신호)과 단위경제(수요·공급 밀집) 모두를 동시에 최적화할 수 있습니다. 한국은 2024년 1인가구가 전체의 36.1%(804만5천 가구)로 확대됐고, 1인가구의 42.7%가 서울·경기에 거주하는 것으로 제시돼 “분리거주·방문 공백”이 구조화되고 있습니다. 2024년 고독사 사망자 3,924명(전년 대비 증가) 발표는 “예방형 안심 지출”의 사회적·시장의 정당성을 강화합니다.</p>
-        
-        <p>수익 모델은 <strong>구독권에 방문 횟수 포함 + 추가 횟수는 토큰(추가결제)</strong>가 가장 설득력 있습니다. 모바일쇼핑 비중 77.0%라는 결제 환경은 구독·추가결제·선물 결제 흐름을 안정적으로 만들기 유리합니다. 또한 가계신용이 높은 환경에서는 “지출의 정당화(안심·증빙·리포트)”가 구독 유지의 핵심이 됩니다.</p>
+            <h2>경영진 요약</h2>
+            <p><strong>Vow Care (바우 케어)</strong>는 “단순 돌봄/교육 서비스”가 아니라 <strong>자녀 결제(선물) 기반의 ‘라스트마일 효도 운영(Ops) 구독’</strong>으로 재정의할 때 결제 저항이 낮고, 바이럴(절제형 효도 신호)과 단위경제(수요·공급 밀집) 모두를 동시에 최적화할 수 있습니다. 2024년 1인가구 비중 36.1% 및 수도권 집중 심화는 “분리거주에 따른 방문 공백”을 구조화하고 있으며, 이는 예방형 안심 지출의 강력한 동인이 됩니다.</p>
 
-        <p>사용자 후속 제약을 충족하기 위해 <strong>유료 대기열(결제대기) 기반 지역 Unlock 확장</strong>을 “과열 경쟁 없이” 설계했습니다. 핵심은 다음과 같습니다.</p>
-        <ul>
-            <li><strong>예치금+재확인 게이트+단계 환불 감가:</strong> 대량가입 후 취소 억제</li>
-            <li><strong>유료대기 가치:</strong> 가격 할인 대신 가격 락·우선 예약창·프리미엄 리포트/배지로 제공</li>
-            <li><strong>코호트 혜택:</strong> “영구 할인”이 아닌 상징+기간 제한+성과형 해금으로 후발 코호트 박탈감 차단</li>
-            <li><strong>동적 조정:</strong> 예치금/오픈 임계치(Dmin) 조정으로 서버·운영 부하 제어</li>
-            <li><strong>초기 멤버 혜택:</strong> 현금 대신 원가 통제 가능한 크레딧/우선권으로 마진 방어(ROI 가드레일 포함)</li>
-        </ul>
+            <div class="diagram-container">
+                <div class="diagram-title">Vow Care 서비스 흐름도 (Ops 플라이휠)</div>
+                <div class="mermaid">
+                    graph TD
+                    A[자녀: 효도패스 구독/결제] -->|요청/토큰| B(Vow AI 엔진: 배차 & 리스크 통제)
+                    B -->|최적 동선 가이드| C[동행 파트너: 부모님 방문]
+                    C -->|안부 확인/디지털 미션/선물| D[부모님: 자립 서사 경험]
+                    D -->|심리적 성취감| E(자립 배지 획득)
+                    C -.->|사진/로그 데이터 업로드| B
+                    B -->|1페이지 안심 리포트 자동생성| A
+                    style A fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px
+                    style B fill:#F8FAFC,stroke:#64748B,stroke-width:2px,stroke-dasharray: 5 5
+                    style C fill:#FFFBEB,stroke:#F59E0B,stroke-width:2px
+                    style D fill:#ECFDF5,stroke:#10B981,stroke-width:2px
+                </div>
+            </div>
 
-        <h2>시장 근거와 결제 심리 가정</h2>
-        <p>본 보고서는 한국의 통계 지표(1인가구 구조, 고독사/고립, 인터넷 이용·구독경제 전환 등)를 우선 채택합니다. 결제 심리(자녀가 기꺼이 결제하는 이유)는 손실회피, 정신회계(교육비보다 월 안심비), IKEA 효과(부모 자립 서사), 친사회적 소비, 절제형 시그널링 등 5가지 레버리지로 표준화합니다.</p>
+            <h2>시장 근거와 결제 심리 가정</h2>
+            <p>결제 심리(자녀가 기꺼이 결제하는 이유)는 아래 5가지 행동경제학적 레버리지로 표준화합니다.</p>
+            <ul>
+                <li><strong>손실회피:</strong> 부모의 사고·연락두절을 예방하는 보험적 성격</li>
+                <li><strong>정신회계:</strong> 교육비가 아닌 '월 안심 유지비' 계정 할당</li>
+                <li><strong>IKEA 효과:</strong> 부모 스스로 뱃지를 획득하며 지원받는다는 무력감 해소</li>
+                <li><strong>절제형 시그널링:</strong> 프라이빗한 리포트 공유로 '조용한 효도' 과시</li>
+            </ul>
 
-        <h2>Vow Care (바우 케어) 제품 사양</h2>
-        
-        <h3>이름과 포지셔닝</h3>
-        <ul>
-            <li><strong>마스터 브랜드:</strong> <strong>Vow (바우)</strong> - 부모님을 향한 다짐과 약속</li>
-            <li><strong>메인 프로젝트:</strong> <strong>Vow Care (바우 케어)</strong></li>
-            <li><strong>한 문장 바이럴 피치:</strong> “부모님 집 근처 동행파트너가 ‘안부+선물+디지털 도움’을 대신 실행하고, 자녀는 1페이지 ‘안심 리포트’로 효도를 조용히 증명하며, 부모는 ‘자립 배지’로 당당히 보여줍니다.”</li>
-            <li><strong>카테고리 정의:</strong> “요양/간병”도 “강의형 교육”도 아닌 <strong>라스트마일 효도 운영 OS</strong></li>
-        </ul>
+            <div class="highlight-box">
+                <strong>블루오션 포인트:</strong> Vow Care가 선점하는 핵심 자산은 인력이 아니라 부양가족의 불안을 해소하는 <strong>신뢰 데이터(증빙·품질로그·정산)</strong> 시스템입니다.
+            </div>
 
-        <div class="highlight-box">
-            <strong>블루오션 각:</strong> Vow Care가 선점하는 것은 단순한 “방문”이 아니라 <strong>신뢰 데이터(증빙·품질·정산)</strong>입니다.
+            <h2>지역 Unlock 및 유료 대기열 알고리즘</h2>
+            <p>서비스 초기 리스크와 마케팅 비용을 통제하기 위해, <strong>유료 예치금 기반의 특정 지역 잠금 해제(Unlock)</strong> 방식을 사용합니다. 혜택은 현금 할인이 아닌 '가격 락(Lock)', '우선 예약권', '프리미엄 리포트'로 제공하여 마진을 방어합니다.</p>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">유료 대기열 2중 게이트 오픈 로직</div>
+                <div class="mermaid">
+                    flowchart LR
+                    W[유료 대기 신청<br>예치금 결제] --> D{수요 임계치<br>Dmin 도달?}
+                    D -- Yes --> S{공급(파트너)<br>충분?}
+                    D -- No --> W2[대기 상태 유지]
+                    S -- Yes --> O((지역 오픈<br>Unlock))
+                    S -- No --> R[파트너 집중 모집]
+                    style O fill:#D1FAE5,stroke:#059669
+                </div>
+            </div>
+
+            <p>동적 임계치(Dmin) 및 부하 제어 수식:</p>
+            <code class="formula">
+// 1. 최소 수요 임계치 계산 (수용력 대비 타겟 유틸리티 반영)
+Dmin_r = Math.ceil((Capacity_r * util_target) / v);
+
+// 2. 서버/CS 부하(LoadIndex)에 따른 동적 임계치 상향
+Dmin_r_adjusted = Math.ceil(Dmin_r * (1 + α * Math.max(0, LoadIndex - L0)));
+
+// 3. 수요 과열 시 허수 방어용 예치금 인상 로직
+Deposit_r = BaseDeposit * (1 + β * Math.max(0, P_r / Dmin_r - 1));
+            </code>
+
+            <h2>단위 경제 (Unit Economics) 검증</h2>
+            <table class="ue-table">
+                <thead>
+                    <tr>
+                        <th>지표 (Per User / Month)</th>
+                        <th style="text-align: right;">금액 / 결과</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>월 평균 고객 매출 (ARPU) <br><small style="color:var(--text-muted)">월 구독료 32만 + 추가 토큰 구매</small></td>
+                        <td class="val">₩345,000</td>
+                    </tr>
+                    <tr>
+                        <td>월 방문 정산 원가 <br><small style="color:var(--text-muted)">월 2.3회 방문 기준</small></td>
+                        <td class="val">- ₩96,600</td>
+                    </tr>
+                    <tr>
+                        <td>결제 및 운영 수수료 (6%)</td>
+                        <td class="val">- ₩20,700</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>월 기여이익 (Contribution Margin)</td>
+                        <td class="val">₩227,700</td>
+                    </tr>
+                    <tr>
+                        <td>고객 획득 비용 (CAC: ₩90,000) 회수 기간</td>
+                        <td class="val">약 0.4 개월 (초건전)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>단일 지역 코호트(예: 송도/강남 등 유료 대기자 200명 오픈 시) 활성 유저 144명을 확보할 경우, <strong>월 3,270만 원의 기여이익</strong>이 창출되며 연환산(ARR) 약 6억 원의 현금흐름을 증명할 수 있습니다.</p>
         </div>
 
-        <h2>단위 경제(Unit Economics) 및 수익 시뮬레이션</h2>
-        <p>서비스 런칭 전, 유닛 이코노믹스의 건전성과 지역 Unlock 오픈 시의 예상 현금흐름을 검증하기 위해 가상의 수치를 바탕으로 시뮬레이션을 진행했습니다.</p>
-
-        <h3>1. 고객 1인당 단위 경제 (Unit Economics)</h3>
-        <p><strong>가정 변수:</strong> 기본 월 구독료(S) ₩320,000 / 월 평균 추가 토큰 구매 0.5회(₩25,000) / 월 평균 방문수(v) 2.3회 / 1회 방문 파트너 정산원가 ₩42,000 / 결제 및 운영 수수료 6% / 고객획득비용(CAC) ₩90,000</p>
-        
-        <code class="formula">
-            ARPU = 구독료 + (추가 토큰 빈도 &times; 토큰 단가)<br>
-            월 변동원가 = (월 방문수 &times; 방문원가) + (ARPU &times; 수수료율)<br>
-            월 기여이익(CM) = ARPU &minus; 월 변동원가<br>
-            페이백(월) = CAC / CM
-        </code>
-
-        <div class="simulation-wrapper">
-            <div class="simulation-header">
-                <span>지표 (Per User / Month)</span>
-                <span>금액 (KRW)</span>
-            </div>
-            <div class="simulation-row">
-                <span>월 평균 고객 매출 (ARPU)</span>
-                <span class="sim-val">₩345,000</span>
-            </div>
-            <div class="simulation-row">
-                <span>월 방문 정산 원가 (2.3회 &times; ₩42,000)</span>
-                <span class="sim-val">&minus;₩96,600</span>
-            </div>
-            <div class="simulation-row">
-                <span>운영 및 결제 수수료 (ARPU의 6%)</span>
-                <span class="sim-val">&minus;₩20,700</span>
-            </div>
-            <div class="simulation-row total">
-                <span>월 기여이익 (Contribution Margin)</span>
-                <span class="sim-val">₩227,700</span>
-            </div>
-            <div class="simulation-row">
-                <span>고객 획득 비용 (CAC) 회수 기간</span>
-                <span class="sim-val">약 0.4개월 (건전)</span>
-            </div>
-        </div>
-        <p>→ <strong>인사이트:</strong> 구독료 내에 원가 마진이 충분히 녹아 있어, <strong>첫 달 결제만으로도 마케팅 비용(CAC) 회수가 가능</strong>한 매우 건전한 유닛 이코노믹스 구조입니다.</p>
-
-        <h3>2. 런칭 첫 달 코호트 시뮬레이션 (특정 지역 Unlock 시)</h3>
-        <p><strong>가정 변수:</strong> 해당 지역 유료 대기자(P) 200명 / 서비스 오픈 전 취소율(C) 20% / 자동결제 성공률(A) 90%</p>
-
-        <code class="formula">
-            Active Users = P &times; (1 &minus; C) &times; A<br>
-            Monthly Revenue = Active &times; ARPU<br>
-            Monthly Contribution = Active &times; CM
-        </code>
-
-        <div class="simulation-wrapper">
-            <div class="simulation-header">
-                <span>오픈 1개월 차 지표 (1개 지역 코호트)</span>
-                <span>결과값</span>
-            </div>
-            <div class="simulation-row">
-                <span>최종 활성 결제 유저 (Active Users)</span>
-                <span class="sim-val">144 명</span>
-            </div>
-            <div class="simulation-row">
-                <span>월 발생 총 매출 (Monthly Revenue)</span>
-                <span class="sim-val">₩49,680,000</span>
-            </div>
-            <div class="simulation-row">
-                <span>월 총 변동원가 (Total VarCost)</span>
-                <span class="sim-val">&minus;₩16,891,200</span>
-            </div>
-            <div class="simulation-row total">
-                <span>월 코호트 기여이익 (총 마진)</span>
-                <span class="sim-val">₩32,788,800</span>
-            </div>
-            <div class="simulation-row">
-                <span>연 환산 기대 매출 (Annualized Run Rate)</span>
-                <span class="sim-val">약 ₩5억 9,600만</span>
-            </div>
-        </div>
-        <p>→ <strong>인사이트:</strong> 유료 대기열(예치금) 시스템이 허수를 걸러내어, 단 1개의 핵심 프리미엄 권역을 오픈(약 144가구 활성화)하는 것만으로도 연간 기준 약 6억 원의 안정적인 매출 기반을 확보할 수 있습니다.</p>
-
-        <h2>지역 Unlock 및 부하 제어 수식</h2>
-        <p>동적 임계치(Dmin) 및 부하 보정, 예치금(d_r) 조절을 통해 수요 과열 시 서버 및 운영(CS) 부하를 자동으로 제어합니다.</p>
-        <code class="formula">
-            Dmin_r = &lceil;(Capacity_r &times; util_target) / v&rceil;<br>
-            Dmin_r' = &lceil;Dmin_r &times; (1 + &alpha; &middot; max(0, LoadIndex &minus; L0))&rceil;<br>
-            d_r = d0 &times; (1 + &beta; &middot; max(0, P_r / Dmin_r &minus; 1))
-        </code>
-
-    </div>
-
-    <div class="mockup-container">
-        <div class="mockup-header">
-            <h4>Vow Care (바우 케어)</h4>
-            <p>이번 주 안심 리포트 📄</p>
-        </div>
-        <div class="mockup-content">
-            <div class="report-card">
-                <span class="badge">부모님 자립 뱃지 획득! 🏆</span>
-                <h3 style="margin-top:0; font-size:1.1rem;">김어르신 님의 3월 2주차</h3>
-                <p style="font-size: 0.8rem; margin-bottom: 15px;">담당 파트너: 이지은 (평점 4.9)</p>
+        <div class="mockup-wrapper">
+            <div class="phone-frame">
+                <div class="notch"></div>
                 
-                <div style="background:#e2e8f0; height:120px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
-                    <span style="color:#64748b; font-size:0.8rem;">📸 방문 인증 사진 영역</span>
+                <div id="screen-home" class="app-screen">
+                    <div class="app-header">
+                        <h4>Vow Care</h4>
+                        <p>서울 강남구 오픈 준비중 🚀</p>
+                    </div>
+                    <div class="app-content">
+                        <div class="card">
+                            <span class="tag wait">예치금 결제 완료</span>
+                            <h3 style="margin: 5px 0 10px; font-size:1.1rem;">강남구 지역 Unlock 현황</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;">오픈 목표 인원 200명 중 170명 달성!</p>
+                            <div class="progress-container"><div class="progress-bar"></div></div>
+                            <p style="text-align: right; font-size: 0.8rem; font-weight: bold; color: var(--primary);">85%</p>
+                            <hr style="border:0; border-top:1px dashed var(--border); margin:15px 0;">
+                            <p style="font-size: 0.9rem; margin:0;">고객님의 대기 순번: <strong>12번</strong> (Founding 멤버)</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top:5px;">✓ 최초 12개월 가격 동결 혜택 적용 예정</p>
+                        </div>
+                        <button class="btn btn-primary">초대 링크 공유하고 대기 순번 당기기</button>
+                    </div>
                 </div>
 
-                <div class="checklist-item">스마트폰 뱅킹 앱 설치 및 송금 교육</div>
-                <div class="checklist-item">겨울 이불 정리 및 환기 보조</div>
-                <div class="checklist-item">건강 안부 확인 및 10분 말벗</div>
+                <div id="screen-report" class="app-screen active">
+                    <div class="app-header">
+                        <h4>Vow Care</h4>
+                        <p>이번 주 안심 리포트 📄</p>
+                    </div>
+                    <div class="app-content">
+                        <div class="card">
+                            <span class="tag success">방문 완료</span>
+                            <h3 style="margin: 0 0 5px; font-size:1.1rem;">김어르신 님의 3월 2주차</h3>
+                            <p style="font-size: 0.8rem; margin-bottom: 15px; color: var(--text-muted);">담당 파트너: 이지은 (평점 4.9)</p>
+                            
+                            <div style="background:#F1F5F9; height:130px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:15px; overflow:hidden;">
+                                <div style="font-size: 2rem;">📸</div>
+                            </div>
 
-                <div class="partner-note">
-                    "어르신께서 오늘 모바일 뱅킹으로 손주에게 직접 용돈을 보내시고 무척 뿌듯해하셨습니다. 식사도 잘 챙겨 드시고 계십니다."
+                            <div class="check-item">스마트폰 뱅킹 앱 설치 및 송금 교육</div>
+                            <div class="check-item">겨울 이불 정리 및 환기 보조</div>
+                            <div class="check-item">건강 안부 확인 및 15분 말벗</div>
+
+                            <div style="background:#F8FAFC; padding:15px; border-radius:10px; font-size:0.85rem; color:var(--text-muted); margin-top:15px; font-style:italic; border-left: 3px solid var(--primary);">
+                                "어르신께서 오늘 모바일 뱅킹으로 손주에게 직접 용돈을 보내시고 무척 뿌듯해하셨습니다. 식사도 잘 챙겨 드시고 계십니다."
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">가족에게 안심 리포트 조용히 공유하기</button>
+                        <button class="btn btn-outline">파트너에게 감사 팁 보내기</button>
+                    </div>
+                </div>
+
+                <div id="screen-parent" class="app-screen">
+                    <div class="app-header" style="background: linear-gradient(135deg, #10B981, #059669);">
+                        <h4>Vow (바우)</h4>
+                        <p>나의 성장 기록 🌱</p>
+                    </div>
+                    <div class="app-content" style="text-align: center;">
+                        <div class="badge-circle">🏆</div>
+                        <h2 style="margin: 0 0 10px; font-size:1.4rem;">축하합니다!</h2>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">
+                            이번 주 미션을 훌륭하게 완수하셨습니다.<br><strong>'디지털 뱅킹 마스터'</strong> 배지를 획득하셨습니다.
+                        </p>
+                        
+                        <div class="card" style="text-align: left;">
+                            <h4 style="margin:0 0 10px;">획득한 배지 컬렉션 (3/10)</h4>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="font-size: 2rem; opacity: 1;">📱</div>
+                                <div style="font-size: 2rem; opacity: 1;">🚶‍♂️</div>
+                                <div style="font-size: 2rem; opacity: 1;">🏆</div>
+                                <div style="font-size: 2rem; opacity: 0.3; filter: grayscale(1);">🛒</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="background: #10B981;">자녀에게 자랑하기</button>
+                    </div>
+                </div>
+
+                <div class="bottom-nav">
+                    <div class="nav-item" onclick="switchTab('home', this)">
+                        <div class="nav-icon">⏳</div>
+                        <span>오픈 대기</span>
+                    </div>
+                    <div class="nav-item active" onclick="switchTab('report', this)">
+                        <div class="nav-icon">📝</div>
+                        <span>안심 리포트</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab('parent', this)">
+                        <div class="nav-icon">🎖️</div>
+                        <span>부모님 뱃지</span>
+                    </div>
                 </div>
             </div>
-
-            <button class="mockup-btn">가족에게 안심 리포트 공유하기</button>
-            <button class="mockup-btn outline">파트너에게 감사 토큰/팁 보내기</button>
         </div>
     </div>
 
+    <script>
+        function switchTab(screenId, element) {
+            // Hide all screens
+            document.querySelectorAll('.app-screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            // Show target screen
+            document.getElementById('screen-' + screenId).classList.add('active');
+            
+            // Update active state on nav items
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+    </script>
 </body>
 </html>
